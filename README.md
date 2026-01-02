@@ -110,18 +110,6 @@ Training configurations are specified in YAML files under `training_configs/`. K
 - `max_length`: Maximum sequence length
 - `max_prompt_length`: Maximum prompt length
 
-Example configuration:
-
-```yaml
-# RMiPO Trainer arguments
-bf16: true
-beta: 2.0
-gamma_beta_ratio: 0.8
-loss_type: rmipo
-learning_rate: 3.0e-7
-max_length: 1024
-max_prompt_length: 512
-```
 
 ## 📊 Evaluation
 
