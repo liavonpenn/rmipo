@@ -1,1 +1,179 @@
-# rmipo
+# RMiPO: Intrinsic Mutual Information as a Modulator for Preference Optimization
+
+**💡 TL; DR:** RMiPO is a lightweight framework for offline preference optimization of LLMs that leverages intrinsic response-level mutual information to dynamically modulate hyperparameters, eliminating the need for extensive hyperparameter tuning while achieving superior performance.
+
+**📢 News:**
+- 【2026.1】RMiPO has been submitted to ACL 2026 and is currently under review. The project will be continuously updated and improved.
+
+## ✨ Features
+
+- **Hyperparameter Modulation**: Leverages intrinsic mutual information to dynamically adjust preference contributions, reducing the need for manual hyperparameter tuning.
+- **Efficient Training**: Achieves superior performance with reduced computational resources and training overhead.
+- **Lightweight Framework**: Minimal computational overhead compared to existing preference optimization methods.
+- **Flexible Configuration**: Supports various model architectures and training configurations.
+
+## 📦 Installation
+
+### Prerequisites
+
+- Python 3.10
+- CUDA-compatible GPU (recommended)
+- Conda or Miniconda
+
+### Setup
+
+1. **Create the conda environment from environment.yml**:
+
+   The `environment.yml` file contains the environment name and all necessary dependencies including PyTorch, transformers, and other core packages. You can create the environment directly from this file:
+
+   ```bash
+   conda env create -f environment.yml
+   ```
+
+2. **Activate the environment**:
+
+   ```bash
+   conda activate rmipo
+   ```
+
+   This will install:
+   - PyTorch 2.4.0 with CUDA 12.1 support
+   - Transformers 4.41.2
+   - DeepSpeed 0.18.2
+   - TRL 0.10.1
+   - Accelerate 0.30.1
+   - PEFT 0.11.1
+   - And other required dependencies
+
+3. **Install Flash Attention 2** (optional but recommended for efficiency):
+
+   ```bash
+   pip install flash-attn --no-build-isolation
+   ```
+
+   Note: Flash Attention 2 requires a CUDA-compatible GPU and appropriate CUDA toolkit.
+
+## 🚀 Training
+
+RMiPO supports two ways to run training: using the provided `run.sh` script or executing the accelerate command directly. Both methods are fully supported.
+
+### Method 1: Using `run.sh` Script
+
+The `run.sh` script provides a convenient way to start training with default configurations:
+
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+This script will launch training using:
+- DeepSpeed Zero3 configuration (`accelerate_configs/deepspeed_zero3.yaml`)
+- The default training config (`training_configs/mistral-7b-base-rmipo.yaml`)
+
+To use a different training configuration, you can modify the script or use Method 2.
+
+### Method 2: Direct Command Execution
+
+You can also run training directly using the accelerate launch command:
+
+```bash
+ACCELERATE_LOG_LEVEL=info accelerate launch \
+    --config_file accelerate_configs/deepspeed_zero3.yaml \
+    scripts/run_rmipo.py \
+    training_configs/mistral-7b-base-rmipo.yaml
+```
+
+Replace `training_configs/mistral-7b-base-rmipo.yaml` with your desired configuration file. Available training configurations include:
+
+- `training_configs/mistral-7b-base-rmipo.yaml`
+- `training_configs/mistral-7b-instruct-rmipo.yaml`
+- `training_configs/llama-3-8b-base-rmipo.yaml`
+- `training_configs/llama-3-8b-instruct-rmipo.yaml`
+
+### Accelerate Configurations
+
+RMiPO supports multiple accelerate configurations for different training setups:
+
+- **DeepSpeed Zero3** (`accelerate_configs/deepspeed_zero3.yaml`): Recommended for large models and multi-GPU training
+- **FSDP** (`accelerate_configs/fsdp.yaml`): Alternative distributed training strategy
+- **Multi-GPU** (`accelerate_configs/multi_gpu.yaml`): Standard multi-GPU training
+
+### Training Configuration
+
+Training configurations are specified in YAML files under `training_configs/`. Key parameters include:
+
+- `model_name_or_path`: Base model to fine-tune
+- `loss_type: rmipo`: Specifies RMiPO loss function
+- `beta`: Beta parameter for preference optimization (default: 2.0)
+- `gamma_beta_ratio`: Ratio between target reward margin and beta (default: 0.5-0.8)
+- `learning_rate`: Learning rate for optimization
+- `max_length`: Maximum sequence length
+- `max_prompt_length`: Maximum prompt length
+
+Example configuration:
+
+```yaml
+# RMiPO Trainer arguments
+bf16: true
+beta: 2.0
+gamma_beta_ratio: 0.8
+loss_type: rmipo
+learning_rate: 3.0e-7
+max_length: 1024
+max_prompt_length: 512
+```
+
+## 📊 Evaluation
+
+RMiPO models can be evaluated on standard benchmarks. Evaluation configurations and templates are provided in the `eval/` directory.
+
+### AlpacaEval 2
+
+Evaluation configurations for AlpacaEval 2 are available in `eval/alpacaeval2/configs/`, and corresponding generation templates can be found in `eval/alpacaeval2/templates/`. To evaluate models on AlpacaEval 2, please use the [alpaca-eval](https://github.com/tatsu-lab/alpaca_eval) package.
+
+### MT-Bench
+
+Reference answers generated by GPT-4 Turbo are provided in `eval/mt-bench/`. To evaluate models on MT-Bench, please use the [FastChat LLM Judge](https://github.com/lm-sys/FastChat/tree/main/fastchat/llm_judge#mt-bench) package.
+
+For detailed evaluation instructions, please refer to `eval/README.md`.
+
+## 📁 Project Structure
+
+```
+rmipo/
+├── accelerate_configs/      # Accelerate configuration files
+│   ├── deepspeed_zero3.yaml
+│   ├── fsdp.yaml
+│   └── multi_gpu.yaml
+├── alignment/                # Alignment utilities and data processing
+├── eval/                     # Evaluation configurations and scripts
+│   ├── alpacaeval2/
+│   └── mt-bench/
+├── scripts/                  # Training scripts
+│   ├── run_rmipo.py         # Main training script
+│   ├── rmipo_config.py      # RMiPO configuration
+│   └── rmipo_trainer.py     # RMiPO trainer implementation
+├── training_configs/         # Training configuration files
+├── environment.yml           # Conda environment setup
+├── run.sh                    # Convenience training script
+└── README.md                 # This file
+```
+
+## 📝 Citation
+
+If you find RMiPO useful in your research, please cite our paper:
+
+```bibtex
+@inproceedings{rmipo2026,
+  title={Intrinsic Mutual Information as a Modulator for Preference Optimization},
+  author={Anonymous},
+  booktitle={Proceedings of the 2026 Annual Meeting of the Association for Computational Linguistics (ACL)},
+  year={2026}
+}
+```
+
+## ⚖️ License
+
+Please refer to the LICENSE file for details.
+
+
