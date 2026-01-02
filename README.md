@@ -141,7 +141,7 @@ For detailed evaluation instructions, please refer to `eval/README.md`.
 
 ```
 rmipo/
-├── accelerate_configs/      # Accelerate configuration files
+├── accelerate_configs/       # Accelerate configuration files
 │   ├── deepspeed_zero3.yaml
 │   ├── fsdp.yaml
 │   └── multi_gpu.yaml
@@ -150,9 +150,9 @@ rmipo/
 │   ├── alpacaeval2/
 │   └── mt-bench/
 ├── scripts/                  # Training scripts
-│   ├── run_rmipo.py         # Main training script
-│   ├── rmipo_config.py      # RMiPO configuration
-│   └── rmipo_trainer.py     # RMiPO trainer implementation
+│   ├── run_rmipo.py          # Main training script
+│   ├── rmipo_config.py       # RMiPO configuration
+│   └── rmipo_trainer.py      # RMiPO trainer implementation
 ├── training_configs/         # Training configuration files
 ├── environment.yml           # Conda environment setup
 ├── run.sh                    # Convenience training script
