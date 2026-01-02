@@ -3,7 +3,7 @@
 **💡 TL; DR:** RMiPO is a lightweight framework for offline preference optimization of LLMs that leverages intrinsic response-level mutual information to dynamically modulate hyperparameters, eliminating the need for extensive hyperparameter tuning while achieving superior performance.
 
 ## 📢 News
-- 【2026.1】RMiPO has been submitted to ACL 2026 and is currently under review. The project will be continuously updated and improved.
+- [2026.1] RMiPO has been submitted to ACL 2026 and is currently under review. The project will be continuously updated and improved.
 
 ## ✨ Features
 
