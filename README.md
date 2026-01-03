@@ -155,7 +155,6 @@ If you find RMiPO useful in your research, please cite our paper:
 @inproceedings{rmipo2026,
   title={Intrinsic Mutual Information as a Modulator for Preference Optimization},
   author={Anonymous},
-  booktitle={Proceedings of the 2026 Annual Meeting of the Association for Computational Linguistics (ACL)},
   year={2026}
 }
 ```
