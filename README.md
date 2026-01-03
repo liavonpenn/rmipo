@@ -9,7 +9,7 @@
 
 - **Lightweight Framework**: We propose RMiPO, a novel lightweight offline preference optimization framework that leverages intrinsic mutual information to enable instance-level adaptive hyperparameter control.
 - **Insightful Analysis**: We conduct a comprehensive examination of the roles of hyperparameters in offline preference optimization frameworks and offer meaningful insights that can guide future practice and research.
-- **Superior Performance**: Through extensive evaluations on benchmarks such as AlpacaEval 2 and MT-Bench, \RMiPO~reduces training costs by approximately 15–20\% while achieving performance clearly superior to state-of-the-art baselines.
+- **Superior Performance**: Through extensive evaluations on benchmarks such as AlpacaEval 2 and MT-Bench, RMiPO reduces training costs by approximately 15–20% while achieving performance clearly superior to state-of-the-art baselines.
 
 ## 📦 Installation
 
