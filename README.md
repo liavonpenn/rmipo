@@ -1,15 +1,17 @@
 # RMiPO: Intrinsic Mutual Information as a Modulator for Preference Optimization
 
-**TL; DR:** RMiPO is a lightweight framework for offline preference optimization of LLMs that leverages intrinsic response-level mutual information to dynamically modulate hyperparameters, eliminating the need for extensive hyperparameter tuning while achieving superior performance.
+**💡 TL; DR:** **RMiPO** is a lightweight framework for offline preference optimization of LLMs that leverages intrinsic response-level mutual information to dynamically modulate hyperparameters, eliminating the need for extensive hyperparameter tuning while achieving superior performance.
 
-## 📢 News
-- [2026.1] RMiPO has been submitted to ACL 2026 and is currently under review. The project will be continuously updated and improved.
+**📢 News:**
+- 【2026.4】RMiPO is accepted to **ACL 2026 Findings**!
+- 【2026.1】RMiPO submitted to **ACL 2026 ARR**!
 
 ## ✨ Features
 
-- **Lightweight Framework**: We propose RMiPO, a novel lightweight offline preference optimization framework that leverages intrinsic mutual information to enable instance-level adaptive hyperparameter control.
-- **Insightful Analysis**: We conduct a comprehensive examination of the roles of hyperparameters in offline preference optimization frameworks and offer meaningful insights that can guide future practice and research.
-- **Superior Performance**: Through extensive evaluations on benchmarks such as AlpacaEval 2 and MT-Bench, RMiPO reduces training costs by approximately 15–20% while achieving performance clearly superior to state-of-the-art baselines.
+- **Hyperparameter Modulation**: Leverages intrinsic mutual information to dynamically adjust preference contributions, reducing the need for manual hyperparameter tuning.
+- **Efficient Training**: Achieves superior performance with reduced computational resources and training overhead.
+- **Lightweight Framework**: Minimal computational overhead compared to existing preference optimization methods.
+- **Flexible Configuration**: Supports various model architectures and training configurations.
 
 ## 📦 Installation
 
@@ -109,6 +111,18 @@ Training configurations are specified in YAML files under `training_configs/`. K
 - `max_length`: Maximum sequence length
 - `max_prompt_length`: Maximum prompt length
 
+Example configuration:
+
+```yaml
+# RMiPO Trainer arguments
+bf16: true
+beta: 2.0
+gamma_beta_ratio: 0.8
+loss_type: rmipo
+learning_rate: 3.0e-7
+max_length: 1024
+max_prompt_length: 512
+```
 
 ## 📊 Evaluation
 
@@ -128,7 +142,7 @@ For detailed evaluation instructions, please refer to `eval/README.md`.
 
 ```
 rmipo/
-├── accelerate_configs/       # Accelerate configuration files
+├── accelerate_configs/      # Accelerate configuration files
 │   ├── deepspeed_zero3.yaml
 │   ├── fsdp.yaml
 │   └── multi_gpu.yaml
@@ -137,9 +151,9 @@ rmipo/
 │   ├── alpacaeval2/
 │   └── mt-bench/
 ├── scripts/                  # Training scripts
-│   ├── run_rmipo.py          # Main training script
-│   ├── rmipo_config.py       # RMiPO configuration
-│   └── rmipo_trainer.py      # RMiPO trainer implementation
+│   ├── run_rmipo.py         # Main training script
+│   ├── rmipo_config.py      # RMiPO configuration
+│   └── rmipo_trainer.py     # RMiPO trainer implementation
 ├── training_configs/         # Training configuration files
 ├── environment.yml           # Conda environment setup
 ├── run.sh                    # Convenience training script
@@ -153,7 +167,8 @@ If you find RMiPO useful in your research, please cite our paper:
 ```bibtex
 @inproceedings{rmipo2026,
   title={Intrinsic Mutual Information as a Modulator for Preference Optimization},
-  author={Anonymous},
+  author={Peng Liao and Peijia Zheng and Lingbo Li and Shangsong Liang and Lin Chen},
+  booktitle={Proceedings of the 2026 Annual Meeting of the Association for Computational Linguistics (ACL)},
   year={2026}
 }
 ```
